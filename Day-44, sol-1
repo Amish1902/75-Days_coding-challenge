@@ -1,0 +1,24 @@
+class Solution {
+public:
+    string reverseWords(string s) {
+        int start = 0;
+        int end = s.size()-1;
+        while(start < s.size() && s.at(start) == ' ') // leading spaces 
+            start++;
+        while(end >= 0 && s.at(end) == ' ') // trailing spaces
+            end--;
+        string res;
+        int ptr_new_word = 0;
+        for(int i = end; i >= start; i--) {
+            if (s[i] == ' ' && s[i+1] == ' ') // multiple spaces int the middle
+                continue;
+            if (s[i] == ' ') { // complete word
+                reverse(res.begin()+ptr_new_word,res.end());
+                ptr_new_word = res.size()+1;
+            }
+            res += s[i];
+        }
+        reverse(res.begin()+ptr_new_word,res.end()); // last word
+        return res;
+    }
+};
